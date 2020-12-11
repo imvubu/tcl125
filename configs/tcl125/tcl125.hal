@@ -133,6 +133,19 @@ net z-home-sw     =>  joint.1.home-sw-in
 net z-neg-limit     =>  joint.1.neg-lim-sw-in
 net z-pos-limit     =>  joint.1.pos-lim-sw-in
 
+# Stepper 2 - toolchanger
+
+setp   hm2_7i96.0.stepgen.02.dirhold         [JOINT_1]DIRHOLD
+setp   hm2_7i96.0.stepgen.02.steplen         [JOINT_1]STEPLEN
+setp   hm2_7i96.0.stepgen.02.stepspace       [JOINT_1]STEPSPACE
+setp   hm2_7i96.0.stepgen.02.position-scale  [JOINT_1]STEP_SCALE
+setp   hm2_7i96.0.stepgen.02.step_type        0
+setp   hm2_7i96.0.stepgen.02.control-type     1
+setp   hm2_7i96.0.stepgen.02.maxaccel         [JOINT_1]STEPGEN_MAXACCEL
+setp   hm2_7i96.0.stepgen.02.maxvel           [JOINT_1]STEPGEN_MAXVEL
+setp   hm2_7i96.0.stepgen.02.enable true
+
+
 #*******************
 #  SPINDLE
 #*******************
