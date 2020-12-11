@@ -247,10 +247,10 @@ net tool-changed iocontrol.0.tool-changed <= toolchanger.toolchanged
 net tool-number iocontrol.0.tool-prep-number => toolchanger.toolnumber
 net tool-oldnumber iocontrol.0.tool-number => toolchanger.currenttoolnumber
 
-net apos-cmd toolchanger.position-cmd => hm2_7i96.0.stepgen.02.position-cmnd
-net toolchanger-stepgen-fb <= stepgen.2.position-fb => toolchanger.hm2_7i96.0.stepgen.02-pos-fb
+net apos-cmd toolchanger.position-cmd => hm2_7i96.0.stepgen.02.position-cmd
+net toolchanger-stepgen-fb <= hm2_7i96.0.stepgen.02.position-fb => toolchanger.stepgen-pos-fb
 net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 
 net estop-out <= iocontrol.0.user-enable-out
 #net estop-ext => iocontrol.0.emc-enable-in   stepgen.2.enable
-net estop-ext <= iocontrol.0.emc-enable-in => toolchanger.enable => hm2_7i96.0.stepgen.02.enable
+#net estop-ext <= iocontrol.0.emc-enable-in => toolchanger.enable => hm2_7i96.0.stepgen.02.enable
