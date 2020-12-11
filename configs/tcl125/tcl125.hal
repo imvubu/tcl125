@@ -237,11 +237,20 @@ net machine-is-enabled        <=  motion.motion-enabled
 net estop-out     <=  iocontrol.0.user-enable-out
 net estop-out     =>  iocontrol.0.emc-enable-in
 
-#  ---manual tool change signals---
+#  toolchanger
 
-loadusr -W hal_manualtoolchange
-net tool-change-request     iocontrol.0.tool-change       =>  hal_manualtoolchange.change
-net tool-change-confirmed   iocontrol.0.tool-changed      <=  hal_manualtoolchange.changed
-net tool-number             iocontrol.0.tool-prep-number  =>  hal_manualtoolchange.number
-net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
+loadrt toolchanger
+addf toolchanger servo-thread
 
+net tool-change iocontrol.0.tool-change => toolchanger.toolchange
+net tool-changed iocontrol.0.tool-changed <= toolchanger.toolchanged
+net tool-number iocontrol.0.tool-prep-number => toolchanger.toolnumber
+net tool-oldnumber iocontrol.0.tool-number => toolchanger.currenttoolnumber
+
+net apos-cmd toolchanger.position-cmd => hm2_7i96.0.stepgen.02.position-cmnd
+net toolchanger-stepgen-fb <= stepgen.2.position-fb => toolchanger.hm2_7i96.0.stepgen.02-pos-fb
+net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+
+net estop-out <= iocontrol.0.user-enable-out
+#net estop-ext => iocontrol.0.emc-enable-in   stepgen.2.enable
+net estop-ext <= iocontrol.0.emc-enable-in => toolchanger.enable => hm2_7i96.0.stepgen.02.enable
