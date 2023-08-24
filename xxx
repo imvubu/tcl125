@@ -1,0 +1,4 @@
+loadrt encoder num_chan=1
+addf encoder.update-counters servo-thread
+addf encoder.capture-position servo-thread
+
