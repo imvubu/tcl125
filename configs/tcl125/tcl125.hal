@@ -9,10 +9,14 @@ loadrt hostmot2
 loadrt hm2_eth board_ip="10.10.10.10" config=" num_encoders=1 num_pwmgens=1 num_stepgens=4 sserial_port_0=00xxxx" 
 setp    hm2_7i96.0.watchdog.timeout_ns 5000000
 loadrt pid names=pid.x,pid.z,pid.s
+loadrt abs count=2
+loadrt limit1
 
 addf hm2_7i96.0.read          servo-thread
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
+addf abs.0 					  servo-thread
+addf limit1.0 				  servo-thread
 addf pid.x.do-pid-calcs       servo-thread
 addf pid.z.do-pid-calcs       servo-thread
 addf pid.s.do-pid-calcs       servo-thread
@@ -162,14 +166,19 @@ setp   pid.s.maxoutput [SPINDLE_0]MAX_OUTPUT
 setp   pid.s.error-previous-target true
 
 
-setp hm2_7i96.0.pwmgen.00.value 0.1
+# setp hm2_7i96.0.pwmgen.00.value 0.1
+net spindle-output-lim hm2_7i96.0.pwmgen.00.value
 setp hm2_7i96.0.pwmgen.pwm_frequency 2000
 
 net spindle-index-enable  <=> pid.s.index-enable
 net spindle-enable        =>  hm2_7i96.0.pwmgen.00.enable
-net spindle-vel-cmd-rpm     => pid.s.command
-net spindle-vel-fb-rpm      => pid.s.feedback
-net spindle-output        <=  pid.s.output
+net spindle-enable 		  => pid.s.enable 
+net spindle-vel-cmd-rps     => pid.s.command
+net spindle-vel-fb-rps-abs      => pid.s.feedback
+net spindle-output        pid.s.output => limit1.0.in
+net spindle-output-lim   limit1.0.out
+setp limit1.0.min 0
+setp limit1.0.max 10
 
 # ---Encoder feedback signals/setup---
 
@@ -181,7 +190,8 @@ setp    hm2_7i96.0.encoder.00.index-mask-invert 0
 setp    hm2_7i96.0.encoder.00.scale  [SPINDLE_0]ENCODER_SCALE
 
 net spindle-revs             <=   hm2_7i96.0.encoder.00.position
-net spindle-vel-fb-rps       <=   hm2_7i96.0.encoder.00.velocity
+net spindle-vel-fb-rps       <=   hm2_7i96.0.encoder.00.velocity abs.0.in
+net spindle-vel-fb-rps-abs   <=   abs.0.out
 net spindle-index-enable     <=>  hm2_7i96.0.encoder.00.index-enable
 
 # ---setup spindle control signals---

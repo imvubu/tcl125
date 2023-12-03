@@ -1,0 +1,38 @@
+# Halshow settings
+# This file is generated automatically.
+wm geometry . 1016x913+785+49
+placeFrames 0.3
+set ::ratio 0.3
+set ::old_w_leftf 160
+set ::watchlist {
+    pin+hm2_7i96.0.pwmgen.00.value
+    pin+pid.s.command
+    pin+pid.s.output
+    pin+pid.s.Pgain
+    pin+pid.s.Igain
+    pin+pid.s.bias
+    pin+pid.s.do-pid-calcs.time
+    pin+pid.s.enable
+    pin+spindle.0.speed-in
+    pin+pid.s.feedback
+    pin+hm2_7i96.0.gpio.027.in
+    pin+hm2_7i96.0.gpio.028.in
+    pin+hm2_7i96.0.gpio.029.in
+    param+hm2_7i96.0.encoder.00.counter-mode
+    pin+hm2_7i96.0.encoder.00.position
+    pin+hm2_7i96.0.encoder.00.count
+    pin+hm2_7i96.0.encoder.00.velocity-rpm
+    pin+hm2_7i96.0.encoder.00.velocity
+    pin+spindle.0.speed-out
+    pin+spindle.0.speed-out-rps
+    pin+pid.s.FF0
+    pin+pid.s.FF1
+    pin+pid.s.maxoutput
+}
+set ::workmode watchhal
+set ::watchInterval 100
+set ::col1_width 100
+set ::ffmts 
+set ::ifmts 
+set ::alwaysOnTop 0
+set ::autoSaveWatchlist 1

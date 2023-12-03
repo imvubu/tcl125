@@ -1,0 +1,15 @@
+rm boring.ngc
+rm chamfer.ngc
+rm drilling.ngc
+rm facing.ngc
+rm grooving.ngc
+rm lathehandler.py
+rm lathe_macros.ini
+rm LatheMacro.svg
+rm lathemacro.ui
+rm LICENSE
+rm new.files
+rm radius.ngc
+rm README
+rm threading.ngc
+rm turning.ngc
