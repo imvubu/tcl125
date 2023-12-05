@@ -14,12 +14,4 @@ to communicate with the Mesa board
 use the ip command rather than ifconfig in order to get the correct
 routing table entry made automatically.
 
-2021-05-31 Tweeking stepper motors
-swapped control side of stepper motor driver cables. They were X-Z
-Z-X. Now X-X and Z-Z
-- Increased current from 0.5A to 5A
-- Reduced microstep from 32 to 8
-Linuxcnc forum says similar motor driver has min 2500 for
-step/space. Default is 5000. Setting below about 3300 causes motor to
-stop running.
-
+https://github.com/imvubu/tcl125/wiki
